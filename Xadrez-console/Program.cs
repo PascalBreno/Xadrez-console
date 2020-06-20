@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using tabuleiro;
 using Xadrez_console.Xadrez;
 
@@ -11,10 +12,23 @@ namespace Xadrez_console
             try
             {
 
-                Tabuleiro tab = new Tabuleiro(8, 8);
-                tab.colocarPeca(new Torre(tab, Cor.Branca), new Posicao(0, 0));
-                tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(2, 0));
-                Tela.imprimirTabuleiro(tab);
+                PartidaDeXadrez partida = new PartidaDeXadrez();
+                while (!partida.terminada)
+                {
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(partida.tabuleiro);
+                    Console.WriteLine();
+                    Console.Write("Origem: "+'\n');
+                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                    Console.WriteLine();
+                    Console.Clear();
+                    bool[,] posicaoPossiveis = partida.tabuleiro.peca(origem).movimentosPossiveis();
+                    Tela.imprimirTabuleiro(partida.tabuleiro,posicaoPossiveis);
+                    Console.WriteLine();
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                    partida.executaMovimento(origem,destino);
+                }
             }
             catch (TabuleiroException e)
             {
