@@ -9,12 +9,15 @@ namespace Xadrez_console
     {
         public static void imprimirPartida(PartidaDeXadrez partida)
         {
+            if(partida.xeque)
+                Console.WriteLine("VOCÊ ESTÁ EM XEQUE!");
             imprimirTabuleiro(partida.tabuleiro);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
             imprimirPecasCapturadas(partida);
             Console.WriteLine("Turno " + partida.turno);
             Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+           
             Console.Write("Origem: ");
         }
 
