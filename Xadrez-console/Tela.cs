@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using tabuleiro;
 using Xadrez_console.Xadrez;
 
@@ -6,6 +7,38 @@ namespace Xadrez_console
 {
     class Tela
     {
+        public static void imprimirPartida(PartidaDeXadrez partida)
+        {
+            imprimirTabuleiro(partida.tabuleiro);
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine("Turno " + partida.turno);
+            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+            Console.Write("Origem: ");
+        }
+
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            Console.WriteLine("Peças Capturadas");
+            Console.Write("Brancas: ");
+            imprimirPecasCapturadas(partida.pecasCapturadas(Cor.Branca));
+            Console.Write("Pretas: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            imprimirPecasCapturadas(partida.pecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void imprimirPecasCapturadas(HashSet<Peca> conjunto)
+        {
+            Console.Write("[");
+            foreach (var x in conjunto)
+            {
+                Console.Write(x+ " ");
+            }
+            Console.Write("]");
+            Console.WriteLine();
+        }
         public static void imprimirTabuleiro(Tabuleiro tab)
         {
             for (int i = 0; i < tab.linhas; i++)
@@ -24,6 +57,7 @@ namespace Xadrez_console
 
         public static void imprimirTabuleiro(Tabuleiro tab, bool[,] posicoesPosiveis)
         {
+            Console.ForegroundColor = ConsoleColor.Gray;
             ConsoleColor fundoOriginal = Console.BackgroundColor;
             ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
             for (int i = 0; i < tab.linhas; i++)
