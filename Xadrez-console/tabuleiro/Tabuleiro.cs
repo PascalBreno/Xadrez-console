@@ -30,8 +30,12 @@
             {
                 throw new TabuleiroException("Já existe uma peça nessa posição!");
             }
-            pecas[pos.linha, pos.coluna] = p;
-            p.posicao = pos;
+
+            if (p != null)
+            {
+                pecas[pos.linha, pos.coluna] = p;
+                p.posicao = pos;
+            }
         }
 
         public Peca retirarPeca(Posicao posicao)
@@ -50,11 +54,7 @@
         }
         public bool posicaoValida(Posicao pos)
         {
-            if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >= colunas)
-            {
-                return false;
-            }
-            return true;
+            return pos.linha >= 0 && pos.linha < linhas && pos.coluna >= 0 && pos.coluna < colunas;
         }
 
         public void validarPosicao(Posicao pos)

@@ -7,18 +7,36 @@ namespace Xadrez_console
 {
     class Tela
     {
-        public static void imprimirPartida(PartidaDeXadrez partida)
+        public static void imprimirPartida(PartidaDeXadrez partida, Posicao origem = null)
         {
-            if(partida.xeque)
-                Console.WriteLine("VOCÊ ESTÁ EM XEQUE!");
-            imprimirTabuleiro(partida.tabuleiro);
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.White;
-            imprimirPecasCapturadas(partida);
-            Console.WriteLine("Turno " + partida.turno);
-            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
-           
-            Console.Write("Origem: ");
+            if (partida.testeCheckmate(partida.jogadorAtual))
+            {
+                
+                Console.WriteLine("Fim de Jogo!");
+            }
+            else
+            {
+                if(partida.xeque)
+                    Console.WriteLine("VOCÊ ESTÁ EM XEQUE!");
+                if (partida.destino)
+                {
+                    partida.destino = false;
+                    bool[,] posicaoPossiveis = partida.tabuleiro.peca(origem).movimentosPossiveis();
+                    imprimirTabuleiro(partida.tabuleiro,posicaoPossiveis);
+                }
+                else
+                {
+                    partida.destino = true;
+                    imprimirTabuleiro(partida.tabuleiro);
+                }
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
+                imprimirPecasCapturadas(partida);
+                Console.WriteLine("Turno " + partida.turno);
+                Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+                Console.WriteLine(partida.destino ? "Destino: " : "Origem: ");
+            }
+            
         }
 
         public static void imprimirPecasCapturadas(PartidaDeXadrez partida)

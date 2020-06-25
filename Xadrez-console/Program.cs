@@ -22,9 +22,7 @@ namespace Xadrez_console
                         Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
                         partida.validarPosicaoDeOrigem(origem);
                         Console.Clear();
-                        bool[,] posicaoPossiveis = partida.tabuleiro.peca(origem).movimentosPossiveis();
-                        Tela.imprimirTabuleiro(partida.tabuleiro, posicaoPossiveis);
-                        Console.Write("Destino: ");
+                        Tela.imprimirPartida(partida,origem);
                         Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
                         partida.validarPosicaoDeDestino(origem,destino);
                         partida.realizaJogada(origem, destino);
