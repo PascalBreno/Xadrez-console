@@ -33,7 +33,6 @@ namespace Xadrez_console
                             partida.destino = !partida.destino;
                         Console.WriteLine((e.Message));
                         Console.ReadLine();
-
                     }
                 }
             }
