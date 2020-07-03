@@ -29,6 +29,8 @@ namespace Xadrez_console
                     }
                     catch (TabuleiroException e)
                     {
+                        if(partida.destino)
+                            partida.destino = !partida.destino;
                         Console.WriteLine((e.Message));
                         Console.ReadLine();
 
