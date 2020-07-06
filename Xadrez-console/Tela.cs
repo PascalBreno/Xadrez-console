@@ -20,13 +20,11 @@ namespace Xadrez_console
                     Console.WriteLine("VOCÊ ESTÁ EM XEQUE!");
                 if (partida.destino)
                 {
-                    partida.destino = false;
                     bool[,] posicaoPossiveis = partida.tabuleiro.peca(origem).movimentosPossiveis();
                     imprimirTabuleiro(partida.tabuleiro,posicaoPossiveis);
                 }
                 else
                 {
-                    partida.destino = true;
                     imprimirTabuleiro(partida.tabuleiro);
                 }
                 Console.WriteLine();
@@ -35,6 +33,7 @@ namespace Xadrez_console
                 Console.WriteLine("Turno " + partida.turno);
                 Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
                 Console.WriteLine(partida.destino ? "Destino: " : "Origem: ");
+                partida.destino = !partida.destino;
             }
             
         }
